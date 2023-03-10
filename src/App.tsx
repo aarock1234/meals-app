@@ -33,8 +33,6 @@ function App() {
 		axios
 			.post(import.meta.env.VITE_MEALS_API + '/api/recipe', { ingredients, focus: mealFocus })
 			.then((res) => {
-				console.log(res.data);
-
 				let { recipe } = res.data;
 				recipe = recipe.trim();
 
@@ -57,7 +55,6 @@ function App() {
 							{ingredients.length > 0 ? (
 								ingredients.map(
 									(ingredient, i) => (
-										console.log(i),
 										(
 											<div className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2">
 												{ingredient}
@@ -82,7 +79,7 @@ function App() {
 									id="focus"
 									type="select"
 									placeholder={'Select a food type...'}
-									onSelect={(_) => {
+									onChange={() => {
 										const input = document.querySelector(
 											'#focus'
 										) as HTMLSelectElement;
