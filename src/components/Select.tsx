@@ -1,6 +1,6 @@
-const Input = (props: React.HTMLProps<HTMLInputElement>) => {
+const Select = (props: React.HTMLProps<HTMLSelectElement>) => {
 	return (
-		<input
+		<select
 			{...props}
 			className={
 				'rounded-md border border-gray-200 h-10 w-full focus:outline-none focus:border-blue-400 transition delay-50 ease-in-out p-1 px-2 text-sm ' +
@@ -10,4 +10,4 @@ const Input = (props: React.HTMLProps<HTMLInputElement>) => {
 	);
 };
 
-export default Input;
+export default Select;

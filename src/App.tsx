@@ -4,6 +4,7 @@ import { PlusSquare, X } from 'react-feather';
 import axios from 'axios';
 
 import Input from './components/Input';
+import Select from './components/Select';
 
 function App() {
 	const [ingredients, setIngredient] = useState<string[]>([]);
@@ -74,22 +75,41 @@ function App() {
 								</div>
 							)}
 						</div>
-						<div className="flex flex-row gap-2 items-center">
-							<Input placeholder="Enter any ingredient..." onKeyDown={handleEnter} />
-							<PlusSquare
-								className="cursor-pointer stroke-gray-700"
-								onClick={() => {
-									// get ingredient from input
-									const input = document.querySelector(
-										'input'
-									) as HTMLInputElement;
-									const ingredient = input.value;
+						<div className="flex flex-col gap-2">
+							<div className="flex flex-row gap-2 items-center justify-top">
+								<Select type="select" placeholder={'Select a food type...'}>
+									<option value="">Any</option>
+									<option value="sandwich">Sandwich</option>
+									<option value="soup">Soup</option>
+									<option value="salad">Salad</option>
+									<option value="pasta">Pasta</option>
+									<option value="main course">Main Course</option>
+									<option value="side dish">Side Dish</option>
+									<option value="dessert">Dessert</option>
+									<option value="appetizer">Appetizer</option>
+									<option value="breakfast">Breakfast</option>
+								</Select>
+							</div>
+							<div className="flex flex-row gap-2 items-center">
+								<Input
+									placeholder="Enter any ingredient..."
+									onKeyDown={handleEnter}
+								/>
+								<PlusSquare
+									className="cursor-pointer stroke-gray-700"
+									onClick={() => {
+										// get ingredient from input
+										const input = document.querySelector(
+											'input'
+										) as HTMLInputElement;
+										const ingredient = input.value;
 
-									setIngredient([...ingredients, ingredient]);
+										setIngredient([...ingredients, ingredient]);
 
-									input.value = '';
-								}}
-							/>
+										input.value = '';
+									}}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
