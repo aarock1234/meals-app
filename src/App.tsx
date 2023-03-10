@@ -20,7 +20,7 @@ function App() {
 	}
 
 	function removeIngredient(index: number) {
-		setIngredient(ingredients.filter((_, i) => i == index));
+		setIngredient(ingredients.filter((_, i) => i != index));
 	}
 
 	function generateRecipe() {
@@ -50,6 +50,7 @@ function App() {
 						<div className="flex flex-col gap-2 overflow-y-auto text-sm lg:text-base">
 							{ingredients.length > 0 ? (
 								ingredients.map((ingredient, i) => (
+									console.log(i),
 									<div className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2">
 										{ingredient}
 										<X
