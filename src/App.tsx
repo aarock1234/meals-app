@@ -10,6 +10,7 @@ function App() {
 	const [ingredients, setIngredient] = useState<string[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [recipeContent, setRecipeContent] = useState<string>('');
+	const [mealFocus, setMealFocus] = useState<string>('');
 
 	function handleEnter(e: React.KeyboardEvent<HTMLInputElement>) {
 		if (e.key === 'Enter') {
@@ -30,7 +31,7 @@ function App() {
 
 		// complete axios request to import.meta.env.MEALS_API/api/recipe and post an object with ingredients
 		axios
-			.post(import.meta.env.VITE_MEALS_API + '/api/recipe', { ingredients })
+			.post(import.meta.env.VITE_MEALS_API + '/api/recipe', { ingredients, focus: mealFocus })
 			.then((res) => {
 				console.log(res.data);
 
@@ -77,7 +78,19 @@ function App() {
 						</div>
 						<div className="flex flex-col gap-2">
 							<div className="flex flex-row gap-2 items-center justify-top">
-								<Select type="select" placeholder={'Select a food type...'}>
+								<Select
+									id="focus"
+									type="select"
+									placeholder={'Select a food type...'}
+									onSelect={(_) => {
+										const input = document.querySelector(
+											'#focus'
+										) as HTMLSelectElement;
+										const focus = input.value;
+
+										setMealFocus(focus);
+									}}
+								>
 									<option value="">Any</option>
 									<option value="sandwich">Sandwich</option>
 									<option value="soup">Soup</option>
