@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import './index.css';
-import { Divide, Plus, PlusCircle, PlusSquare, Send, X } from 'react-feather';
+import { PlusSquare, X } from 'react-feather';
+import axios from 'axios';
+
 import Input from './components/Input';
 
 function App() {
 	const [ingredients, setIngredient] = useState<string[]>([]);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [recipeContent, setRecipeContent] = useState<string>('');
 
 	function handleEnter(e: React.KeyboardEvent<HTMLInputElement>) {
 		if (e.key === 'Enter') {
@@ -17,6 +21,24 @@ function App() {
 
 	function removeIngredient(index: number) {
 		setIngredient(ingredients.filter((_, i) => i == index));
+	}
+
+	function generateRecipe() {
+		setRecipeContent('');
+		setLoading(true);
+
+		// complete axios request to import.meta.env.MEALS_API/api/recipe and post an object with ingredients
+		axios
+			.post(import.meta.env.VITE_MEALS_API + '/api/recipe', { ingredients })
+			.then((res) => {
+				console.log(res.data);
+				setRecipeContent(res.data);
+				setLoading(false);
+			})
+			.catch((_) => {
+				setRecipeContent('An error occured, please try again.');
+				setLoading(false);
+			});
 	}
 
 	return (
@@ -66,12 +88,19 @@ function App() {
 				<div className="w-2/3 flex flex-col font-medium text-xl">
 					Generate a recepie:
 					<textarea
+						value={recipeContent}
 						className="my-4 h-full resize-none text-sm font-normal p-3 focus:outline-none bg-gray-200"
 						disabled
 					/>
 					<div>
-						<button className="border border-gray-200 text-white w-full rounded-md h-10 bg-blue-400 text-sm focus:outline-none font-normal hover:bg-blue-600 transition delay-25 duration-250 ease-in-out p-1 px-2">
-							Generate
+						<button
+							disabled={loading}
+							onClick={generateRecipe}
+							className={`${
+								!loading ? 'hover:bg-blue-600' : ''
+							} border border-gray-200 text-white w-full rounded-md h-10 bg-blue-400 text-sm focus:outline-none font-normal transition delay-25 duration-250 ease-in-out p-1 px-2`}
+						>
+							{!loading ? 'Generate' : 'Generating...'}
 						</button>
 					</div>
 				</div>
