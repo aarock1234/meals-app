@@ -32,7 +32,7 @@ function App() {
 			.post(import.meta.env.VITE_MEALS_API + '/api/recipe', { ingredients })
 			.then((res) => {
 				console.log(res.data);
-				setRecipeContent(res.data);
+				setRecipeContent(res.data.recipe);
 				setLoading(false);
 			})
 			.catch((_) => {
