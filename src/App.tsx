@@ -15,8 +15,8 @@ function App() {
 		}
 	}
 
-	function removeIngredient(ingredient: string) {
-		setIngredient(ingredients.filter((i) => i !== ingredient));
+	function removeIngredient(index: number) {
+		setIngredient(ingredients.filter((_, i) => i == index));
 	}
 
 	return (
@@ -27,13 +27,13 @@ function App() {
 					<div className="text-black font-normal h-full flex justify-between flex-col mt-4">
 						<div className="flex flex-col gap-2 overflow-y-auto text-sm lg:text-base">
 							{ingredients.length > 0 ? (
-								ingredients.map((ingredient, _) => (
+								ingredients.map((ingredient, i) => (
 									<div className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2">
 										{ingredient}
 										<X
 											className="cursor-pointer text-red-500 hover:text-red-700 transition delay-25 duration-250 ease-in-out"
 											size={14}
-											onClick={() => removeIngredient(ingredient)}
+											onClick={() => removeIngredient(i)}
 										/>
 									</div>
 								))
