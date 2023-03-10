@@ -86,7 +86,7 @@ function App() {
 				</div>
 				<div className="w-0.5 bg-gray-200"></div>
 				<div className="w-2/3 flex flex-col font-medium text-xl">
-					Generate a recepie:
+					Generate a recipe:
 					<textarea
 						value={recipeContent}
 						className="my-4 h-full resize-none text-sm font-normal p-3 focus:outline-none bg-gray-200"
