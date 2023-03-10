@@ -32,7 +32,11 @@ function App() {
 			.post(import.meta.env.VITE_MEALS_API + '/api/recipe', { ingredients })
 			.then((res) => {
 				console.log(res.data);
-				setRecipeContent(res.data.recipe);
+
+				let { recipe } = res.data;
+				recipe = recipe.trim();
+
+				setRecipeContent(recipe);
 				setLoading(false);
 			})
 			.catch((_) => {
@@ -49,17 +53,21 @@ function App() {
 					<div className="text-black font-normal h-full flex justify-between flex-col mt-4">
 						<div className="flex flex-col gap-2 overflow-y-auto text-sm lg:text-base">
 							{ingredients.length > 0 ? (
-								ingredients.map((ingredient, i) => (
-									console.log(i),
-									<div className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2">
-										{ingredient}
-										<X
-											className="cursor-pointer text-red-500 hover:text-red-700 transition delay-25 duration-250 ease-in-out"
-											size={14}
-											onClick={() => removeIngredient(i)}
-										/>
-									</div>
-								))
+								ingredients.map(
+									(ingredient, i) => (
+										console.log(i),
+										(
+											<div className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2">
+												{ingredient}
+												<X
+													className="cursor-pointer text-red-500 hover:text-red-700 transition delay-25 duration-250 ease-in-out"
+													size={14}
+													onClick={() => removeIngredient(i)}
+												/>
+											</div>
+										)
+									)
+								)
 							) : (
 								<div className="text-xs text-gray-500">
 									You don't have any ingredients, add one to get started!
