@@ -17,6 +17,9 @@ test('Renders ingredient input correctly', () => {
 
 	const ingredientInput = document.querySelector('#ingredientInput');
 	expect(ingredientInput).toBeDefined();
+
+	const recipeContent = document.querySelector('#recipeContent');
+	expect(recipeContent).toBeDefined();
 });
 
 // Test #ingredientInput to see if it can be typed in properly
@@ -99,3 +102,14 @@ test('Ingredients are removed from the list', () => {
 	expect(ingredientList?.children?.length).toBe(1); // still 1 because of placeheolder
 	expect(ingredientList?.children[0].textContent).not.toBe('test');
 });
+
+// List of tests:
+// Renders main page correctly
+// 		#ingredients exists
+
+// Renders ingredient input correctly
+// Ingredient input can be typed in
+// Renders add ingredient button correctly
+// Renders ingredient list correctly
+// Ingredients are added to the list
+// Ingredients are removed from the list
