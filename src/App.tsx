@@ -60,7 +60,10 @@ function App() {
 						>
 							{ingredients.length > 0 ? (
 								ingredients.map((ingredient, i) => (
-									<div className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2">
+									<div
+										key={`ingredient-${i}`}
+										className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2"
+									>
 										{ingredient}
 										<X
 											className="cursor-pointer text-red-500 hover:text-red-700 transition delay-25 duration-250 ease-in-out"
@@ -70,7 +73,7 @@ function App() {
 									</div>
 								))
 							) : (
-								<div className="text-xs text-gray-500">
+								<div key="placeholder" className="text-xs text-gray-500">
 									You don't have any ingredients, add one to get started!
 								</div>
 							)}
