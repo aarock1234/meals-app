@@ -29,9 +29,9 @@ function App() {
 		setRecipeContent('');
 		setLoading(true);
 
-		// complete axios request to import.meta.env.MEALS_API/api/recipe and post an object with ingredients
+		// complete axios request to process.env.MEALS_API/api/recipe and post an object with ingredients
 		axios
-			.post(import.meta.env.VITE_MEALS_API + '/api/recipe', { ingredients, focus: mealFocus })
+			.post(process.env.VITE_MEALS_API + '/api/recipe', { ingredients, focus: mealFocus })
 			.then((res) => {
 				let { recipe } = res.data;
 				recipe = recipe.trim();
@@ -48,25 +48,27 @@ function App() {
 	return (
 		<div className="flex items-center justify-center h-screen w-screen bg-gray-200">
 			<div className="p-4 border drop-shadow-md bg-gray-100 rounded-md border-gray-200 gap-8 flex flex-row h-1/2 lg:h-2/3 w-3/4">
-				<div className="w-1/3 flex flex-col font-medium text-xl text-gray-800">
+				<div
+					id="ingredients"
+					className="w-1/3 flex flex-col font-medium text-xl text-gray-800"
+				>
 					Ingredients
 					<div className="text-black font-normal h-full flex justify-between flex-col mt-4">
-						<div className="flex flex-col gap-2 overflow-y-auto text-sm lg:text-base">
+						<div
+							id="ingredientList"
+							className="flex flex-col gap-2 overflow-y-auto text-sm lg:text-base"
+						>
 							{ingredients.length > 0 ? (
-								ingredients.map(
-									(ingredient, i) => (
-										(
-											<div className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2">
-												{ingredient}
-												<X
-													className="cursor-pointer text-red-500 hover:text-red-700 transition delay-25 duration-250 ease-in-out"
-													size={14}
-													onClick={() => removeIngredient(i)}
-												/>
-											</div>
-										)
-									)
-								)
+								ingredients.map((ingredient, i) => (
+									<div className="stroke-gray-700 rounded border-2 p-1.5 justify-between text-gray-700 flex flex-row items-center gap-2">
+										{ingredient}
+										<X
+											className="cursor-pointer text-red-500 hover:text-red-700 transition delay-25 duration-250 ease-in-out"
+											size={14}
+											onClick={() => removeIngredient(i)}
+										/>
+									</div>
+								))
 							) : (
 								<div className="text-xs text-gray-500">
 									You don't have any ingredients, add one to get started!
@@ -102,10 +104,12 @@ function App() {
 							</div>
 							<div className="flex flex-row gap-2 items-center">
 								<Input
+									id="ingredientInput"
 									placeholder="Enter any ingredient..."
 									onKeyDown={handleEnter}
 								/>
 								<PlusSquare
+									id="addIngredient"
 									className="cursor-pointer stroke-gray-700"
 									onClick={() => {
 										// get ingredient from input
